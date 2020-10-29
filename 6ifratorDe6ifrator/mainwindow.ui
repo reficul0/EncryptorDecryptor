@@ -1,0 +1,620 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>472</width>
+    <height>406</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow
+{
+opacity: 1.0;
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">opacity: 1.0;</string>
+   </property>
+   <widget class="QFrame" name="background_main_frame">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>411</width>
+      <height>361</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"> position: absolute;
+width: 1440px;
+height: 107px;
+left: 0px;
+top: 0px;
+
+background: #FFFFFF;
+border-radius: 20px;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QPushButton" name="exitButton_4">
+     <property name="geometry">
+      <rect>
+       <x>360</x>
+       <y>0</y>
+       <width>21</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">image: url(:exit.png)</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="resources.qrc">
+       <normaloff>:/new/prefix1/exit.png</normaloff>:/new/prefix1/exit.png</iconset>
+     </property>
+    </widget>
+    <widget class="QFrame" name="background_white_frame">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>31</y>
+       <width>411</width>
+       <height>331</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">
+QFrame{
+position: absolute;
+width: 1440px;
+height: 917px;
+left: 0px;
+top: 107px;
+
+background: #727FF0;
+border-radius: 20px;
+}
+
+QComboBox{
+position: absolute;
+width: 778px;
+height: 85px;
+left: 338px;
+top: 301px;
+
+background: #B0B7F8;
+color : white;
+border-radius: 10px;
+
+border: 1px solid gray;
+padding-left: 30px;
+
+font-family: Rockwell;
+font-style: normal;
+font-weight: normal;
+font-size: 15px;
+line-height: 56px;
+}
+
+
+QComboBox QAbstractScrollArea QScrollBar::handle:vertical {
+        border-radius: 15px;
+}
+
+
+QComboBox QAbstractItemView {
+background: #B0B7F8;
+	color : white;
+
+font-family: Rockwell;
+font-style: normal;
+font-weight: normal;
+font-size: 15px;
+line-height: 56px;
+}
+
+
+
+QLineEdit
+{
+position: absolute;
+width: 637px;
+height: 85px;
+left: 338px;
+top: 605px;
+
+background: #B0B7F8;
+border-top-left-radius: 15px;
+border-top-right-radius: 0px;
+border-bottom-right-radius: 0px;
+border-bottom-left-radius: 15px;
+
+
+font-family: Rockwell;
+font-style: normal;
+font-weight: normal;
+font-size: 15px;
+line-height: 42px;
+
+
+padding-left: 15px;
+
+color: #FFFFFF;
+}</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QLineEdit" name="pathToSourceFIle">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>190</y>
+        <width>211</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Rockwell</family>
+        <pointsize>-1</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="inputMask">
+       <string/>
+      </property>
+      <property name="text">
+       <string comment="имя выходного файла"/>
+      </property>
+      <property name="placeholderText">
+       <string>путь до исходного файла</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="browseDestButton">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>230</y>
+        <width>71</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Rockwell</family>
+        <pointsize>-1</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
+position: absolute;
+width: 778px;
+height: 85px;
+left: 338px;
+top: 301px;
+
+background: #B0B7F8;
+color : white;
+
+border-top-left-radius: 0px;
+border-bottom-left-radius: 0px;
+border-top-right-radius: 15px;
+border-bottom-right-radius: 15px;
+
+
+font-family: Rockwell;
+font-style: normal;
+font-weight: normal;
+font-size: 15px;
+line-height: 56px;
+
+color: #FFFFFF;</string>
+      </property>
+      <property name="text">
+       <string>Browse</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="shifrsBox">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>100</y>
+        <width>281</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Rockwell</family>
+        <pointsize>-1</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="outFileName">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>230</y>
+        <width>211</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Rockwell</family>
+        <pointsize>-1</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="inputMask">
+       <string/>
+      </property>
+      <property name="text">
+       <string comment="имя выходного файла"/>
+      </property>
+      <property name="placeholderText">
+       <string>путь до выходного файла</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="avalilableOperationsBox">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>40</y>
+        <width>281</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Rockwell</family>
+        <pointsize>-1</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="frame">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="runButton">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>270</y>
+        <width>181</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Rockwell</family>
+        <pointsize>-1</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">position: absolute;
+width: 360px;
+height: 80px;
+left: 547px;
+top: 909px;
+
+background: rgba(255, 213, 100, 0.89);
+color : white;
+border-radius: 20px;
+
+font-family: Rockwell;
+font-style: normal;
+font-weight: normal;
+font-size: 20px;
+line-height: 56px;
+
+color: #FFFFFF;</string>
+      </property>
+      <property name="text">
+       <string>Запуск</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="browseSourceButton">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>190</y>
+        <width>71</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Rockwell</family>
+        <pointsize>-1</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
+position: absolute;
+width: 778px;
+height: 85px;
+left: 338px;
+top: 301px;
+
+background: #B0B7F8;
+color : white;
+
+border-top-left-radius: 0px;
+border-bottom-left-radius: 0px;
+border-top-right-radius: 15px;
+border-bottom-right-radius: 15px;
+
+font-family: Rockwell;
+font-style: normal;
+font-weight: normal;
+font-size: 15px;
+line-height: 56px;
+
+color: #FFFFFF;</string>
+      </property>
+      <property name="text">
+       <string>Browse</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="methodLAble">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>10</y>
+        <width>261</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
+font-family: Rockwell;
+font-style: normal;
+font-weight: normal;
+font-size: 15px;
+line-height: 56px;
+color: white;</string>
+      </property>
+      <property name="text">
+       <string>Задача</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="enctyptionTypeLable">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>70</y>
+        <width>251</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
+font-family: Rockwell;
+font-style: normal;
+font-weight: normal;
+font-size: 15px;
+line-height: 56px;
+
+color: white;</string>
+      </property>
+      <property name="text">
+       <string>Способ шифрования</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="complitionInfo">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>260</y>
+        <width>71</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">
+background: #727FF0;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset resource="resources.qrc">
+        <normaloff>:/new/prefix1/ok.png</normaloff>:/new/prefix1/ok.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>50</width>
+        <height>50</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QFrame" name="verticalFrame">
+      <property name="geometry">
+       <rect>
+        <x>59</x>
+        <y>139</y>
+        <width>281</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <layout class="QVBoxLayout" name="encryptionSettingsLayuot">
+       <property name="spacing">
+        <number>2</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+      </layout>
+     </widget>
+     <zorder>complitionInfo</zorder>
+     <zorder>browseDestButton</zorder>
+     <zorder>shifrsBox</zorder>
+     <zorder>pathToSourceFIle</zorder>
+     <zorder>outFileName</zorder>
+     <zorder>avalilableOperationsBox</zorder>
+     <zorder>runButton</zorder>
+     <zorder>browseSourceButton</zorder>
+     <zorder>methodLAble</zorder>
+     <zorder>enctyptionTypeLable</zorder>
+     <zorder>verticalFrame</zorder>
+    </widget>
+    <widget class="QFrame" name="background_left_white">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>131</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">position: absolute;
+width: 1440px;
+height: 107px;
+left: 0px;
+top: 0px;
+
+background: #FFFFFF;
+border-radius:15px;</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+    </widget>
+    <widget class="QFrame" name="background_left_violet">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>15</y>
+       <width>121</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">position: absolute;
+width: 1440px;
+height: 107px;
+left: 0px;
+top: 0px;
+
+
+background: #727FF0;</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+    </widget>
+    <zorder>background_white_frame</zorder>
+    <zorder>exitButton_4</zorder>
+    <zorder>background_left_violet</zorder>
+    <zorder>background_left_white</zorder>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>472</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>
