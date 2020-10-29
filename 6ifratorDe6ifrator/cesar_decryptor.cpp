@@ -47,7 +47,7 @@ CesarDecryptor::CesarDecryptor(size_t shift)
 
 }
 
-void CesarDecryptor::decrypt(std::string &source, std::string &destination)
+void CesarDecryptor::decrypt(std::string const &source, std::string const &destination)
 {
     std::experimental::filesystem::path source_path = std::experimental::filesystem::absolute(source);
 

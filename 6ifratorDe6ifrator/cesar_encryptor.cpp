@@ -40,7 +40,7 @@ CesarEncryptor::CesarEncryptor(size_t shift)
 
 }
 
-void CesarEncryptor::encrypt(std::string &source, std::string &destination)
+void CesarEncryptor::encrypt(std::string const &source, std::string const &destination)
 {
     std::experimental::filesystem::path source_path = std::experimental::filesystem::absolute(source);
     std::ifstream src{source, std::ios::binary, _SH_DENYWR};

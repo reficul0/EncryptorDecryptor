@@ -9,7 +9,7 @@ class CesarDecryptor
 {
 public:
     CesarDecryptor(size_t shift);
-    void decrypt(std::string &source, std::string &destination) override;
+    void decrypt(std::string const &source, std::string const &destination) override;
 private:
     size_t _shift;
 };

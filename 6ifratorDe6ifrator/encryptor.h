@@ -7,7 +7,7 @@ class Encryptor
 {
 public:
     virtual ~Encryptor() = default;
-    virtual void encrypt(std::string &source, std::string &destination) = 0;
+    virtual void encrypt(std::string const &source, std::string const &destination) = 0;
 };
 
 #endif // ENCRYPTOR_H
