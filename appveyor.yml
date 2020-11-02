@@ -49,7 +49,7 @@ install:
 build_script:
     # скрипт сборки проекта:
     - mkdir build
-    - qmake 6ifratorDe6ifrator/6ifratorDe6ifrator.pro -spec win32-msvc
+    - qmake CONFIG+=$(configuration) 6ifratorDe6ifrator/6ifratorDe6ifrator.pro -spec win32-msvc
     - C:\Qt\Tools\QtCreator\bin\jom.exe -f Makefile.Release
  
 test_script:
