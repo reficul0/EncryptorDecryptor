@@ -40,6 +40,7 @@ void Test::test_encryption_decryption()
     CesarEncryptor encryptor(1);
     CesarDecryptor decryptor(1);
     {
+        int i = 0;
         std::ofstream sourse("decrypted_ceasar.txt", std::ios::binary | std::ios::trunc);
         sourse << "abvgd1263671236172\ndhjfakjsdhfgakjh!adsfjhjkl!";
     }
