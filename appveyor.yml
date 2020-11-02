@@ -49,6 +49,7 @@ build_script:
     # скрипт сборки проекта:
     - mkdir build
     - qmake CONFIG+=release 6ifratorDe6ifrator/6ifratorDe6ifrator.pro -spec win32-msvc
+    - qmake CONFIG+=release Tests/Tests.pro -spec win32-msvc
     - C:\Qt\Tools\QtCreator\bin\jom.exe -f Makefile.Release
     - windeployqt ./%BUILD_CONFIG%/6ifratorDe6ifrator.exe
  
