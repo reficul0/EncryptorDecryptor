@@ -50,7 +50,6 @@ build_script:
     # скрипт сборки проекта:
     - mkdir build
     - qmake 6ifratorDe6ifrator/6ifratorDe6ifrator.pro -spec win32-msvc
-    - qmake_all
     - C:\Qt\Tools\QtCreator\bin\jom.exe -f Makefile.Release
  
 test_script:
