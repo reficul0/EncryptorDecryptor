@@ -1,1 +1,1 @@
-[![Build Status](https://travis-ci.org/reficul0/EncryptorDecryptor.svg?branch=master)](https://travis-ci.org/reficul0/EncryptorDecryptor)
+
