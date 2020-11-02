@@ -53,7 +53,7 @@ build_script:
     - windeployqt ./release/6ifratorDe6ifrator.exe
     - qmake CONFIG+=debug Tests/Tests.pro -spec win32-msvc
     - C:\Qt\Tools\QtCreator\bin\jom.exe -f Makefile.Debug
-    - windeployqt --debug ./release/Tests.exe
+    - windeployqt --debug ./debug/Tests.exe
     - ./debug/Tests.exe -xunitxml > tests.xml
  
 on_finish:
