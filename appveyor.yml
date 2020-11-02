@@ -1,0 +1,78 @@
+os: unstable
+image: Visual Studio 2015   # на этом VM-образе установлены все Visual Studio с 2008 по 2015
+
+branches:
+  only:
+    - master
+    
+init:
+    # секция инициализации, исполняется до клонирования проекта
+    # скорее всего, строчка ниже необязательна (так должно быть по умолчанию),
+    # вместе с тем, она присутствует в официальных примерах, так что пусть будет:
+    - git config --global core.autocrlf input
+clone_folder: c:\projects\polynom # выбираем локальную директорию для клонирования
+shallow_clone: true              # копируем только последний коммит, без истории (git clone --depth 1)
+
+matrix:
+    fast_finish: true           # останавливаемся после возникновения ошибки в каком-то из заданий
+
+platform:
+    # будем гонять CI на amd64 и x86...
+    - x64    
+    - x86
+
+configuration:
+    # ... и в дебажной, и в релизной конфигурациях ...
+    - Debug
+    - Release
+
+environment:  
+    COVERALLS_REPO_TOKEN:
+        secure: /W0ImKAfLG96HA1nlkhhW0ntoJCRq7wps5
+    APPVEYOR_RDP_PASSWORD: 1234as!&
+    BOOST_ROOT: C:\Libraries\boost_1_65_1
+    BOOST_LIBRARYDIR: C:\Libraries\boost_1_65_1
+    PATH: "%BOOST_LIBRARYDIR%;%PATH%"
+    matrix:
+        # 2015
+        - TOOLCHAIN: msvc14
+install:
+    - set QTDIR=C:\Qt\5.13.2\msvc2015_64
+    - set PATH=%QTDIR%\bin;C:\Qt\Tools\mingw530_32\bin;%PATH%;
+    # скрипт настройки среды и установки зависимостей:
+    - call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
+    - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
+
+    #- appveyor DownloadFile <url> -FileName <local-file>
+    #- 7z e -y <local-file> -o<local-dir>
+
+build_script:
+    # скрипт сборки проекта:
+    - mkdir build
+      - qmake 6ifratorDe6ifrator/6ifratorDe6ifrator.pro -spec win32-msvc
+      #- qmake Tests/Tests.pro -spec win32-msvc
+      - qmake_all
+      - C:\Qt\Tools\QtCreator\bin\jom.exe -f Makefile.Release
+ 
+test_script:
+    - ctest -j2 -VV -C Debug
+#on_finish:
+#  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
+artifacts:
+    - path: ./$(configuration)/
+      name: polynom_artifacts
+
+deploy:
+    # выкладываем tagged-коммиты на GitHub Releases:
+    description: '$(APPVEYOR_REPO_TAG_NAME)'
+    provider: GitHub
+
+    auth_token:
+        secure: <encrypted-github-token>
+
+    artifact: package_name
+    force_update: true
+
+    on:
+        appveyor_repo_tag: true
