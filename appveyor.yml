@@ -53,9 +53,9 @@ build_script:
     - windeployqt ./%BUILD_CONFIG%/6ifratorDe6ifrator.exe
     - qmake CONFIG+=debug Tests/Tests.pro -spec win32-msvc
     - C:\Qt\Tools\QtCreator\bin\jom.exe -f Makefile.Debug
- 
-test_script:
+    - windeployqt --debug AurebeshProjectTest.exe
     - ./debug/Tests.exe -xunitxml > tests.xml
+ 
 on_finish:
   - ps: (new-object net.webclient).UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\tests.xml))
 #  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
