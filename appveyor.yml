@@ -42,9 +42,6 @@ install:
     - call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
     - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
 
-    #- appveyor DownloadFile <url> -FileName <local-file>
-    #- 7z e -y <local-file> -o<local-dir>
-
 build_script:
     # скрипт сборки проекта:
     - mkdir build
@@ -55,7 +52,16 @@ build_script:
     - C:\Qt\Tools\QtCreator\bin\jom.exe -f Makefile.Debug
     - windeployqt --debug ./debug/Tests.exe
     - .\debug\Tests.exe -xunitxml > tests.xml
- 
+    
+test_script:
+    - .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:administrator -target:"packages\xunit.runner.console.2.2.0\tools\xunit.console.x86.exe" -targetargs:".\debug\Tests.exe -noshadow" -output:".\coverage.xml"
+
+after_test:
+  - ps: |
+      $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
+      Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
+      bash codecov.sh -f "coverage.xml"
+      
 on_finish:
     - ps: (new-object net.webclient).UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\tests.xml))
 #  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
@@ -63,17 +69,3 @@ on_finish:
 artifacts:
     - path: ./%BUILD_CONFIG%/
       name: artifacts
-
-deploy:
-    # выкладываем tagged-коммиты на GitHub Releases:
-    description: '$(APPVEYOR_REPO_TAG_NAME)'
-    provider: GitHub
-
-    auth_token:
-        secure: <encrypted-github-token>
-
-    artifact: package_name
-    force_update: true
-
-    on:
-        appveyor_repo_tag: true
