@@ -54,11 +54,11 @@ build_script:
     - qmake CONFIG+=debug Tests/Tests.pro -spec win32-msvc
     - C:\Qt\Tools\QtCreator\bin\jom.exe -f Makefile.Debug
     - windeployqt --debug ./debug/Tests.exe
-    - ./debug/Tests.exe -xunitxml > tests.xml
  
 on_finish:
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-  - ps: (new-object net.webclient).UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\tests.xml))
+    - "./debug/Tests.exe" -xunitxml > tests.xml
+    - ps: (new-object net.webclient).UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\tests.xml))
+#  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 artifacts:
     - path: ./%BUILD_CONFIG%/
