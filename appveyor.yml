@@ -22,8 +22,6 @@ platform:
     - x86
 
 configuration:
-    # ... и в дебажной, и в релизной конфигурациях ...
-    - Debug
     - Release
 
 environment:  
@@ -50,8 +48,9 @@ install:
 build_script:
     # скрипт сборки проекта:
     - mkdir build
-    - qmake CONFIG+="%BUILD_CONFIG%" 6ifratorDe6ifrator/6ifratorDe6ifrator.pro -spec win32-msvc
+    - qmake CONFIG+=release 6ifratorDe6ifrator/6ifratorDe6ifrator.pro -spec win32-msvc
     - C:\Qt\Tools\QtCreator\bin\jom.exe -f Makefile.Release
+    - windeployqt ./%BUILD_CONFIG%/6ifratorDe6ifrator.exe
  
 test_script:
     - ctest -j2 -VV -C Debug
@@ -60,7 +59,7 @@ on_finish:
 
 artifacts:
     - path: ./%BUILD_CONFIG%/
-      name: polynom_artifacts
+      name: artifacts
 
 deploy:
     # выкладываем tagged-коммиты на GitHub Releases:
