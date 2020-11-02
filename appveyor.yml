@@ -50,10 +50,10 @@ build_script:
     - mkdir build
     - qmake CONFIG+=release 6ifratorDe6ifrator/6ifratorDe6ifrator.pro -spec win32-msvc
     - C:\Qt\Tools\QtCreator\bin\jom.exe -f Makefile.Release
-    - windeployqt ./%BUILD_CONFIG%/6ifratorDe6ifrator.exe
+    - windeployqt ./release/6ifratorDe6ifrator.exe
     - qmake CONFIG+=debug Tests/Tests.pro -spec win32-msvc
     - C:\Qt\Tools\QtCreator\bin\jom.exe -f Makefile.Debug
-    - windeployqt --debug AurebeshProjectTest.exe
+    - windeployqt --debug ./release/Tests.exe
     - ./debug/Tests.exe -xunitxml > tests.xml
  
 on_finish:
