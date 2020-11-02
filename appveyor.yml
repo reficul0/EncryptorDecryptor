@@ -52,16 +52,7 @@ build_script:
     - C:\Qt\Tools\QtCreator\bin\jom.exe -f Makefile.Debug
     - windeployqt --debug ./debug/Tests.exe
     - .\debug\Tests.exe -xunitxml > tests.xml
-    
-test_script:
-    - .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:administrator -target:"%xunit20%\xunit.console.x86.exe" -targetargs:".\debug\Tests.exe -noshadow" -output:".\coverage.xml"
-
-after_test:
-  - ps: |
-      $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
-      Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
-      bash codecov.sh -f "coverage.xml" -t $($env:CODECOV_TOKEN)
-      
+     
 on_finish:
     - ps: (new-object net.webclient).UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\tests.xml))
 #  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
