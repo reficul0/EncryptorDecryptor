@@ -51,8 +51,8 @@ build_script:
     - qmake CONFIG+=release 6ifratorDe6ifrator/6ifratorDe6ifrator.pro -spec win32-msvc
     - C:\Qt\Tools\QtCreator\bin\jom.exe -f Makefile.Release
     - windeployqt ./%BUILD_CONFIG%/6ifratorDe6ifrator.exe
-    - qmake Tests/Tests.pro -spec win32-msvc
-    - C:\Qt\Tools\QtCreator\bin\jom.exe -f Makefile.Test
+    - qmake CONFIG+=debug Tests/Tests.pro -spec win32-msvc
+    - C:\Qt\Tools\QtCreator\bin\jom.exe -f Makefile.Debug
  
 test_script:
     - ctest -j2 -VV -C Debug
