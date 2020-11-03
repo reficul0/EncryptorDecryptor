@@ -10,7 +10,7 @@ init:
     # скорее всего, строчка ниже необязательна (так должно быть по умолчанию),
     # вместе с тем, она присутствует в официальных примерах, так что пусть будет:
     - git config --global core.autocrlf input
-clone_folder: c:\projects\polynom # выбираем локальную директорию для клонирования
+clone_folder: c:\src # выбираем локальную директорию для клонирования
 shallow_clone: true              # копируем только последний коммит, без истории (git clone --depth 1)
 
 matrix:
@@ -43,18 +43,30 @@ install:
     - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
 
 build_script:
+- cmd: >-
     # скрипт сборки проекта:
-    - mkdir build
-    - qmake CONFIG+=release 6ifratorDe6ifrator/6ifratorDe6ifrator.pro -spec win32-msvc
-    - C:\Qt\Tools\QtCreator\bin\jom.exe -f Makefile.Release
-    - windeployqt ./release/6ifratorDe6ifrator.exe
-    - qmake CONFIG+=debug Tests/Tests.pro -spec win32-msvc
-    - C:\Qt\Tools\QtCreator\bin\jom.exe -f Makefile.Debug
-    - windeployqt --debug ./debug/Tests.exe
-    - .\debug\Tests.exe -xunitxml > tests.xml
+    mkdir build
+    cd build
+    
+    curl -s https://report.ci/annotate.py > annotate.py
+    
+    pip install --user conan
+    set PATH=%PATH%;C:\Users\appveyor\AppData\Roaming\Python\Scripts
+    conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan 
+    
+    qmake CONFIG+=release c:/src/6ifratorDe6ifrator/6ifratorDe6ifrator.pro -spec win32-msvc
+    C:\Qt\Tools\QtCreator\bin\jom.exe -f Makefile.Release | python annotate.py --name "MSVC Build App" --tool msvc --tee
+    windeployqt ./release/6ifratorDe6ifrator.exe
+    
+    qmake CONFIG+=debug c:/src/Tests/Tests.pro -spec win32-msvc
+    C:\Qt\Tools\QtCreator\bin\jom.exe -f Makefile.Debug | python annotate.py --name "MSVC Build Tests" --tool msvc --tee
+    windeployqt --debug ./debug/Tests.exe
+    
+    .\debug\Tests.exe -xunitxml > tests.xml
      
 on_finish:
     - ps: (new-object net.webclient).UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\tests.xml))
+    - curl -s https://report.ci/upload.py | python
 #  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 artifacts:
