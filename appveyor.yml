@@ -44,7 +44,6 @@ install:
 
 build_script:
 - cmd: >-
-    # скрипт сборки проекта:
     mkdir build
     cd build
     
