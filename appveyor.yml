@@ -1,5 +1,3 @@
-version: 'build-{build}-{branch}'
-
 os: unstable
 image: Visual Studio 2015   # на этом VM-образе установлены все Visual Studio с 2008 по 2015
 
@@ -26,18 +24,6 @@ platform:
 configuration:
     - Release
 
-cache:
-  - packages -> **\packages.config  # preserve "packages" directory in the root of build folder but will reset it if packages.config is modified
-  - '%LocalAppData%\NuGet\Cache'    # NuGet < v3
-  - '%LocalAppData%\NuGet\v3-cache' # NuGet v3
-  
-assembly_info:
-  patch: true
-  file: AssemblyInfo.*
-  assembly_version: "2.2.{build}"
-  assembly_file_version: "{version}"
-  assembly_informational_version: "{version}"
-    
 environment:
     CODECOV_TOKEN:
         secure: e8qe5I3ngSiMDPZsLfLBP7iCZJHrFD8gsXAYTkfQ1HL09UBk10s4vWNEDVMnFoM8
@@ -56,19 +42,27 @@ install:
     - set PATH=%QTDIR%\bin;C:\Qt\Tools\mingw730_64\bin;%PATH%;
     # скрипт настройки среды и установки зависимостей:
     - call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
-    - call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
-befire_build:
-    - nuget restore c:\src\TcpCommunication.sln
-  
+    - call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
+
 build_script:
     - mkdir build
     - cd build
     
     - curl -s https://report.ci/annotate.py > annotate.py
     
-    - msbuild c:\src\TcpCommunication.sln /m /property:Configuration=Release /verbosity:normal /parallel:true /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" > build.log
+    - pip install --user conan
+    - set PATH=%PATH%;C:\Users\appveyor\AppData\Roaming\Python\Scripts
+    - conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan 
     
-    #- .\debug\Tests.exe -xunitxml > tests.xml
+    - qmake CONFIG+=release c:/src/6ifratorDe6ifrator/6ifratorDe6ifrator.pro -spec win32-msvc
+    - C:\Qt\Tools\QtCreator\bin\jom.exe -f Makefile.Release > build.log
+    - windeployqt ./release/6ifratorDe6ifrator.exe
+    
+    - qmake CONFIG+=debug c:/src/Tests/Tests.pro -spec win32-msvc
+    - C:\Qt\Tools\QtCreator\bin\jom.exe -f Makefile.Debug > build.log
+    - windeployqt --debug ./debug/Tests.exe
+    
+    - .\debug\Tests.exe -xunitxml > tests.xml
 on_failure:
     - curl -s https://raw.githubusercontent.com/report-ci/scripts/master/upload.py | python - --tool msvc --input build.log 
 on_finish:
