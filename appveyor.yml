@@ -53,18 +53,19 @@ build_script:
     - conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan 
     
     - qmake CONFIG+=release c:/src/6ifratorDe6ifrator/6ifratorDe6ifrator.pro -spec win32-msvc
-    - C:\Qt\Tools\QtCreator\bin\jom.exe -f Makefile.Release | python annotate.py --name "MSVC Build App" --tool msvc --tee
+    - C:\Qt\Tools\QtCreator\bin\jom.exe -f Makefile.Release > build.log
     - windeployqt ./release/6ifratorDe6ifrator.exe
     
     - qmake CONFIG+=debug c:/src/Tests/Tests.pro -spec win32-msvc
-    - C:\Qt\Tools\QtCreator\bin\jom.exe -f Makefile.Debug | python annotate.py --name "MSVC Build Tests" --tool msvc --tee
+    - C:\Qt\Tools\QtCreator\bin\jom.exe -f Makefile.Debug > build.log
     - windeployqt --debug ./debug/Tests.exe
     
     - .\debug\Tests.exe -xunitxml > tests.xml
-     
+on_failure:
+    - curl -s https://raw.githubusercontent.com/report-ci/scripts/master/upload.py | python - --tool msvc --input build.log 
 on_finish:
     - ps: (new-object net.webclient).UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\tests.xml))
-    - curl -s https://report.ci/upload.py | python
+    - curl -s https://raw.githubusercontent.com/report-ci/scripts/master/upload.py | python
 #  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 artifacts:
