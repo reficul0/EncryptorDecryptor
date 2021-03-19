@@ -6,7 +6,7 @@
 ![language](https://img.shields.io/badge/language-c++-blue.svg)
 ![c++](https://img.shields.io/badge/std-c++14-blue.svg)
 ![Qt](https://img.shields.io/badge/Qt-5.13.1-ff69b4.svg)<br>
-[![GUI prototype](https://img.shields.io/badge/GUI-Figma-<GREEN>.svg)](https://www.figma.com/file/zITnrz2yyunLbSoBbiZjBc/Untitled?node-id=0%3A1)
+[![Prototype](https://img.shields.io/badge/Prototype-Figma-<GREEN>.svg)](https://www.figma.com/file/zITnrz2yyunLbSoBbiZjBc/Untitled?node-id=0%3A1)
 
 ## License
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Freficul0%2FEncryptorDecryptor.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Freficul0%2FEncryptorDecryptor?ref=badge_large)
